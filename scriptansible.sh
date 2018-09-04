@@ -1,0 +1,2 @@
+ansible centos -a "uptime"
+

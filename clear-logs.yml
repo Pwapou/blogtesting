@@ -1,0 +1,9 @@
+- name: "delete log"
+  hosts: centos
+  tasks: 
+   - name: "create file"
+     file: path=my-ansible-file state=touch
+   - name: "deleete file"
+     file: path=my-ansible-file state=absent
+          
+
