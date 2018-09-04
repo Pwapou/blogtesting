@@ -7,19 +7,22 @@
   - name: check apache 
     yum:
      name: httpd
-     state: latest    
-  - name: write the apache config
-    template:
-      src: /srv/httpd.j2
-      dest: /etc/httpd.conf
-    notify:
-    - restart apache 
+     state: latest     
   - name: ensure apache is running
     service:
       name: httpd
       state: started
-  handlers: 
-   - name: restart apache 
-     service:
-       name: httpd
-       state: restarted 
+  - name: delete var
+    file:
+      path: /var/www
+      state: absent
+  - name: clone repo
+    git: 
+      repo=https://github.com/Pwapou/blogtesting.git
+      dest=/var/www
+      version=HEAD
+  - name: restart apache
+    service:
+      name: httpd
+      state: restarted
+ 
